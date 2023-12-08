@@ -14,7 +14,7 @@ namespace ResetScore
     {
         public override string ModuleAuthor => "StefanX";
         public override string ModuleName => "ResetScore";
-        public override string ModuleVersion => "1.0.1";
+        public override string ModuleVersion => "1.0.2";
         
         public ResetScoreConfig Config { get; set; } = new();
 
@@ -25,7 +25,10 @@ namespace ResetScore
 
         public void OnConfigParsed(ResetScoreConfig config)
 	    {
-            config.ResetScoreChatTag = ModifyColorValue(config.ResetScoreChatTag);
+            config.ResetScoreChatTag    = ModifyColorValue(config.ResetScoreChatTag);
+            config.ResetScoreMessage    = ModifyColorValue(config.ResetScoreMessage);
+            config.SetScoreMessage      = ModifyColorValue(config.SetScoreMessage);
+            config.OnlyAdminsMessage    = ModifyColorValue(config.OnlyAdminsMessage);
 	    	Config = config;
 	    }
 
@@ -33,12 +36,12 @@ namespace ResetScore
         public void OnResetScoreCommand(CCSPlayerController? player, CommandInfo command)
         {
             if(!IsAdmin(player) && Config.OnlyAdmins){
-                player!.PrintToChat($" {Config.ResetScoreChatTag} This command is only for admins!");
+                player!.PrintToChat($" {Config.ResetScoreChatTag} {Config.OnlyAdminsMessage}");
                 return;
             }
 
             SetScore(player, 0, 0, 0, 0, 0, 0);
-            player!.PrintToChat($" {Config.ResetScoreChatTag} Your score has been reset!");
+            player!.PrintToChat($" {Config.ResetScoreChatTag} {Config.ResetScoreMessage}");
         }
 
         [ConsoleCommand("setscore", "ResetScore")]
@@ -57,7 +60,7 @@ namespace ResetScore
 				if(target!.PlayerName.Contains(splitCmdArgs[0], compare))
 				{
                     SetScore(target!, int.Parse(command.ArgByIndex(2)), int.Parse(command.ArgByIndex(3)), int.Parse(command.ArgByIndex(4)), int.Parse(command.ArgByIndex(5)), int.Parse(command.ArgByIndex(6)), int.Parse(command.ArgByIndex(7)));
-                    player!.PrintToChat($" {Config.ResetScoreChatTag} {ChatColors.Gold}{target.PlayerName}{ChatColors.Default} score has been set!");
+                    player!.PrintToChat($" {Config.ResetScoreChatTag} {Config.SetScoreMessage}".Replace("{PLAYER}", target.PlayerName));
 				}
 			}
         }
