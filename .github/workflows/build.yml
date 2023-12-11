@@ -1,4 +1,5 @@
 name: Build
+
 on:
   push:
     paths-ignore:
@@ -9,6 +10,7 @@ on:
       - LICENSE
       - README.md
   workflow_dispatch:
+
 jobs:
   build:
     name: Build on ${{ matrix.os_short }}
@@ -16,29 +18,37 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Compile on Linux.
         os:
           - ubuntu-latest
         include:
           - os: ubuntu-latest
             os_short: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-dotnet@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '7.0'
-      - run: dotnet build
 
-      - shell: bash
+      - name: Build
+        run: dotnet build
+
+      - name: Prepare artifact
         run: |
-          mkdir -p plugins/ResetScore
-          mv bin/Debug/net7.0/* plugins/ResetScore
-        
+          mkdir -p ResetScore
+          mv lang ResetScore
+          mv bin/Debug/net7.0/* ResetScore
+
+      - name: Create .zip artifact
+        run: zip -r ${{ github.event.repository.name }}.zip ResetScore/*
+
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: ${{ github.event.repository.name }}
-          path: plugins
+          path: ${{ github.event.repository.name }}.zip
 
   release:
     name: Release
@@ -49,14 +59,12 @@ jobs:
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v3
+        with:
+          name: ${{ github.event.repository.name }}
 
-      - name: Package
-        run: |
-          7z a -mx9 ${{ github.event.repository.name }}.zip cs2-SimpleResetScore/
       - name: Release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.REGISTRY_TOKEN }}
-          file: '*.zip'
+          file: ${{ github.event.repository.name }}.zip
           tag: ${{ github.ref }}
-          file_glob: true

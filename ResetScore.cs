@@ -1,20 +1,24 @@
 using System.Text.RegularExpressions;
+using System.Reflection;
 using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
+using CounterStrikeSharp.API.Core.Attributes;
 using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Modules.Commands;
 using CounterStrikeSharp.API.Modules.Utils;
 using CounterStrikeSharp.API.Modules.Admin;
-using System.Reflection;
+using CounterStrikeSharp.API.Core.Translations;
 using Microsoft.Extensions.Logging;
+
 
 namespace ResetScore
 {
+    [MinimumApiVersion(120)]
     public class ResetScore : BasePlugin, IPluginConfig<ResetScoreConfig>
     {
         public override string ModuleAuthor => "StefanX";
         public override string ModuleName => "ResetScore";
-        public override string ModuleVersion => "1.0.2";
+        public override string ModuleVersion => "1.0.3";
         
         public ResetScoreConfig Config { get; set; } = new();
 
@@ -26,9 +30,6 @@ namespace ResetScore
         public void OnConfigParsed(ResetScoreConfig config)
 	    {
             config.ResetScoreChatTag    = ModifyColorValue(config.ResetScoreChatTag);
-            config.ResetScoreMessage    = ModifyColorValue(config.ResetScoreMessage);
-            config.SetScoreMessage      = ModifyColorValue(config.SetScoreMessage);
-            config.OnlyAdminsMessage    = ModifyColorValue(config.OnlyAdminsMessage);
 	    	Config = config;
 	    }
 
@@ -36,12 +37,13 @@ namespace ResetScore
         public void OnResetScoreCommand(CCSPlayerController? player, CommandInfo command)
         {
             if(!IsAdmin(player) && Config.OnlyAdmins){
-                player!.PrintToChat($" {Config.ResetScoreChatTag} {Config.OnlyAdminsMessage}");
+                player!.PrintToChat($" {Config.ResetScoreChatTag} " + Localizer["resetscore.onlyadmins"]);
+                
                 return;
             }
 
             SetScore(player, 0, 0, 0, 0, 0, 0);
-            player!.PrintToChat($" {Config.ResetScoreChatTag} {Config.ResetScoreMessage}");
+            player!.PrintToChat($" {Config.ResetScoreChatTag} " + Localizer["resetscore.resetscore.message"]);
         }
 
         [ConsoleCommand("setscore", "ResetScore")]
@@ -60,7 +62,7 @@ namespace ResetScore
 				if(target!.PlayerName.Contains(splitCmdArgs[0], compare))
 				{
                     SetScore(target!, int.Parse(command.ArgByIndex(2)), int.Parse(command.ArgByIndex(3)), int.Parse(command.ArgByIndex(4)), int.Parse(command.ArgByIndex(5)), int.Parse(command.ArgByIndex(6)), int.Parse(command.ArgByIndex(7)));
-                    player!.PrintToChat($" {Config.ResetScoreChatTag} {Config.SetScoreMessage}".Replace("{PLAYER}", target.PlayerName));
+                    player!.PrintToChat($" {Config.ResetScoreChatTag} " + Localizer["resetscore.setscore.message", target.PlayerName]);
 				}
 			}
         }
@@ -91,7 +93,7 @@ namespace ResetScore
 				return modifiedValue;
 			}
 
-			return string.IsNullOrEmpty(msg) ? $"{ChatColors.Red}[ResetScore]" : msg;
+			return string.IsNullOrEmpty(msg) ? $"{ChatColors.Red}[ResetScore]{ChatColors.Default} " : msg;
 		}
 
         private bool IsAdmin(CCSPlayerController? playerController)
