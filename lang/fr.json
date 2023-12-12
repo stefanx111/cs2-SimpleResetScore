@@ -1,5 +1,5 @@
 {
-    "resetscore.onlyadmins": "This command is only for admins!",
-    "resetscore.resetscore.message": "Your score has been reset!",
-    "resetscore.setscore.message": "{Gold}{0:s}{Default} score has been set!"
+    "resetscore.onlyadmins": "Cette commande est réservée aux administrateurs !",
+    "resetscore.resetscore.message": "Votre score a été réinitialisé !",
+    "resetscore.setscore.message": "{Gold}{0:s}{Default} score a été défini !"
 } 
