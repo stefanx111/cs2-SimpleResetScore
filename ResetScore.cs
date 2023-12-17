@@ -10,7 +10,6 @@ using CounterStrikeSharp.API.Modules.Admin;
 using CounterStrikeSharp.API.Core.Translations;
 using Microsoft.Extensions.Logging;
 
-
 namespace ResetScore
 {
     [MinimumApiVersion(120)]
@@ -48,7 +47,7 @@ namespace ResetScore
 
         [ConsoleCommand("setscore", "ResetScore")]
         [CommandHelper(minArgs: 7, usage: "<target> <kiils> <deaths> <assists> <damage> <mvps> <score>", whoCanExecute: CommandUsage.CLIENT_ONLY)]
-        [RequiresPermissions("@resetscore/admin")]
+        [RequiresPermissions("@css/generic")]
         public void OnSetScoreCommand(CCSPlayerController? player, CommandInfo command)
         {
             var arg = command.GetCommandString;
@@ -98,7 +97,7 @@ namespace ResetScore
 
         private bool IsAdmin(CCSPlayerController? playerController)
         {
-            return AdminManager.PlayerHasPermissions(playerController, "@resetscore/admin");
+            return AdminManager.PlayerHasPermissions(playerController, "@css/vip");
         }
     }
 }
