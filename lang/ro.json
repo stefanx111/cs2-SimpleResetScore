@@ -1,5 +1,6 @@
 {
-    "resetscore.onlyadmins": "Aceasta comanda este doar pentru admini !",
+    "resetscore.resetscore.onlyvips": "Aceasta comanda este doar pentru vipi !",
+    "resetscore.setscore.onlyadmins": "Aceasta comanda este doar pentru admini !",
     "resetscore.resetscore.message": "Scorul tau a fost resetat !",
     "resetscore.setscore.message": "Scorul jucatorului {Gold}{0:s}{Default} a fost setat !"
 } 

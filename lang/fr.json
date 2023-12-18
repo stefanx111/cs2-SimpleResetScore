@@ -1,5 +1,6 @@
 {
-    "resetscore.onlyadmins": "Cette commande est réservée aux administrateurs !",
+    "resetscore.resetscore.onlyvips": "Cette commande est réservée aux vips !",
+    "resetscore.setscore.onlyadmins": "Cette commande est réservée aux administrateurs !",
     "resetscore.resetscore.message": "Votre score a été réinitialisé !",
     "resetscore.setscore.message": "{Gold}{0:s}{Default} score a été défini !"
 } 

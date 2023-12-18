@@ -1,5 +1,6 @@
 {
-    "resetscore.onlyadmins": "Este comando é apenas para administradores !",
+    "resetscore.resetscore.onlyvips": "Este comando é apenas para vips !",
+    "resetscore.setscore.onlyadmins": "Este comando é apenas para administradores !",
     "resetscore.resetscore.message": "Seu score foi zerado !",
     "resetscore.setscore.message": "{Gold}{0:s}{Default} score foi definido !"
 }

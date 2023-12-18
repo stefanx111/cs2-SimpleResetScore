@@ -8,9 +8,15 @@ namespace ResetScore
 		[JsonPropertyName("ResetScoreChatTag")]
 		public string ResetScoreChatTag { get; set; } = "{Red}[Resetscore]{Default}";
 
-		[JsonPropertyName("OnlyAdmins")]
-		public bool OnlyAdmins { get; set; } = false;
+		[JsonPropertyName("ResetScoreOnlyVip")]
+		public bool ResetScoreOnlyVip { get; set; } = false;
+
+		[JsonPropertyName("SetScoreAdminFlag")]
+		public string SetScoreAdminFlag { get; set; } = "@css/cheats";
+
+		[JsonPropertyName("ResetScoreVipFlag")]
+		public string ResetScoreVipFlag { get; set; } = "@css/vip";
 	
-        public int Version { get; set; } = 3;
+        public int Version { get; set; } = 4;
     }
 }

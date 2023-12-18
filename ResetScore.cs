@@ -18,13 +18,13 @@ namespace ResetScore
     {
         public override string ModuleAuthor => "StefanX";
         public override string ModuleName => "ResetScore";
-        public override string ModuleVersion => "1.0.3";
-        
+        public override string ModuleVersion => "1.0.4";
+
         public ResetScoreConfig Config { get; set; } = new();
 
         public override void Load(bool hotReload)
         {
-            Logger.LogInformation("ResetScore loaded!");
+            Logger.LogInformation($"ResetScore loaded {ModuleVersion} !");
         }
 
         public void OnConfigParsed(ResetScoreConfig config)
@@ -36,9 +36,8 @@ namespace ResetScore
         [ConsoleCommand("rs", "ResetScore")]
         public void OnResetScoreCommand(CCSPlayerController? player, CommandInfo command)
         {
-            if(!IsAdmin(player) && Config.OnlyAdmins){
-                player!.PrintToChat($" {Config.ResetScoreChatTag} " + Localizer["resetscore.onlyadmins"]);
-                
+            if(!ResetScoreVipFlag(player) && Config.ResetScoreOnlyVip){
+                player!.PrintToChat($" {Config.ResetScoreChatTag} " + Localizer["resetscore.resetscore.onlyvips"]);
                 return;
             }
 
@@ -48,9 +47,14 @@ namespace ResetScore
 
         [ConsoleCommand("setscore", "ResetScore")]
         [CommandHelper(minArgs: 7, usage: "<target> <kiils> <deaths> <assists> <damage> <mvps> <score>", whoCanExecute: CommandUsage.CLIENT_ONLY)]
-        [RequiresPermissions("@resetscore/admin")]
         public void OnSetScoreCommand(CCSPlayerController? player, CommandInfo command)
         {
+            if(!SetScoreAdminFlag(player))
+            {
+                player!.PrintToChat($" {Config.ResetScoreChatTag} " + Localizer["resetscore.setscore.onlyadmins"]);
+                return;
+            }
+
             var arg = command.GetCommandString;
             var splitCmdArgs = Regex.Matches(command.ArgByIndex(1), @"[\""].+?[\""]|[^ ]+").Select(m => m.Value).ToArray();
 
@@ -65,8 +69,9 @@ namespace ResetScore
                     player!.PrintToChat($" {Config.ResetScoreChatTag} " + Localizer["resetscore.setscore.message", target.PlayerName]);
 				}
 			}
+            
         }
-        
+
         private void SetScore(CCSPlayerController? player, int kills, int deaths, int assists, int damage, int mvps, int score)
         {
             player!.ActionTrackingServices!.MatchStats.Kills  = kills;
@@ -96,9 +101,14 @@ namespace ResetScore
 			return string.IsNullOrEmpty(msg) ? $"{ChatColors.Red}[ResetScore]{ChatColors.Default} " : msg;
 		}
 
-        private bool IsAdmin(CCSPlayerController? playerController)
+        private bool SetScoreAdminFlag(CCSPlayerController? playerController)
         {
-            return AdminManager.PlayerHasPermissions(playerController, "@resetscore/admin");
+            return AdminManager.PlayerHasPermissions(playerController, Config.SetScoreAdminFlag);
+        }
+
+        private bool ResetScoreVipFlag(CCSPlayerController? playerController)
+        {
+            return AdminManager.PlayerHasPermissions(playerController, Config.ResetScoreVipFlag);
         }
     }
 }
