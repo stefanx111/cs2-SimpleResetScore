@@ -13,12 +13,12 @@ using Microsoft.Extensions.Logging;
 
 namespace ResetScore
 {
-    [MinimumApiVersion(120)]
+    [MinimumApiVersion(141)]
     public class ResetScore : BasePlugin, IPluginConfig<ResetScoreConfig>
     {
         public override string ModuleAuthor => "StefanX";
         public override string ModuleName => "ResetScore";
-        public override string ModuleVersion => "1.0.4";
+        public override string ModuleVersion => "1.0.5";
 
         public ResetScoreConfig Config { get; set; } = new();
 
@@ -69,7 +69,6 @@ namespace ResetScore
                     player!.PrintToChat($" {Config.ResetScoreChatTag} " + Localizer["resetscore.setscore.message", target.PlayerName]);
 				}
 			}
-            
         }
 
         private void SetScore(CCSPlayerController? player, int kills, int deaths, int assists, int damage, int mvps, int score)
@@ -80,6 +79,10 @@ namespace ResetScore
             player.ActionTrackingServices.MatchStats.Damage = damage;
             player.MVPs = mvps;
             player.Score = score;
+
+            Utilities.SetStateChanged(player, "CCSPlayerController", "m_pActionTrackingServices");
+            Utilities.SetStateChanged(player, "CCSPlayerController", "m_iMVPs");
+            Utilities.SetStateChanged(player, "CCSPlayerController", "m_iScore");
         }
 
         private string ModifyColorValue(string msg)
