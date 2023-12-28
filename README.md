@@ -5,14 +5,9 @@ A simple Reset Score plugin for CS2.
 # Requirements:
 [CounterStrikeSharp](https://github.com/roflmuffin/CounterStrikeSharp) 
 
-# Important:
-
-> [!WARNING]
-> I know that there is currently a delay until the score is updated in the scoreboard. We have to wait for StateChanged/NetworkStateChanged in the css core.
-
 # How to use:
 1. Install [CounterStrike Sharp](https://github.com/roflmuffin/CounterStrikeSharp) and [Metamod:Source](https://www.sourcemm.net/downloads.php/?branch=master)
-3. Download [cs2-SimpleResetScore](https://github.com/stefanx111/cs2-SimpleResetScore/releases/download/1.0.4/cs2-SimpleResetScore.zip)
+3. Download [cs2-SimpleResetScore](https://github.com/stefanx111/cs2-SimpleResetScore/releases/download/1.0.5/cs2-SimpleResetScore.zip)
 4. Unzip the archive and upload `ResetScore` folder in the `plugins` folder.
 
 # Commands:
