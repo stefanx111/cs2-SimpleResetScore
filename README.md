@@ -24,6 +24,7 @@ addons/counterstrikesharp/configs/plugins/ResetScore/ResetScore.json
   "ResetScoreOnlyVip": false,
   "SetScoreAdminFlag": "@css/cheats",
   "ResetScoreVipFlag": "@css/vip",
+  "DisableResetScoreMVP": false,
   "Version": 4, 
   "ConfigVersion": 1
 }
@@ -32,3 +33,4 @@ addons/counterstrikesharp/configs/plugins/ResetScore/ResetScore.json
 - OnlyAdmins -> If false `!rs` work for everyone. If true `!rs` works for vips with `ResetScoreVipFlag`
 - SetScoreAdminFlag -> Admin flag for !setscore
 - ResetScoreVipFlag -> Vip flag for using `!rs` if `ResetScoreOnlyVip` is true 
+- DisableResetScoreMVP -> If true, disable resets for mvps.
