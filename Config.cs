@@ -16,6 +16,9 @@ namespace ResetScore
 
 		[JsonPropertyName("ResetScoreVipFlag")]
 		public string ResetScoreVipFlag { get; set; } = "@css/vip";
+
+		[JsonPropertyName("DisableResetScoreMVP")]
+		public bool DisableResetScoreMVP { get; set; } = false;
 	
         public int Version { get; set; } = 4;
     }

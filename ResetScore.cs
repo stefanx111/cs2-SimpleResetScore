@@ -13,12 +13,12 @@ using Microsoft.Extensions.Logging;
 
 namespace ResetScore
 {
-    [MinimumApiVersion(141)]
+    [MinimumApiVersion(193)]
     public class ResetScore : BasePlugin, IPluginConfig<ResetScoreConfig>
     {
         public override string ModuleAuthor => "StefanX";
         public override string ModuleName => "ResetScore";
-        public override string ModuleVersion => "1.0.5";
+        public override string ModuleVersion => "1.0.6";
 
         public ResetScoreConfig Config { get; set; } = new();
 
@@ -77,12 +77,18 @@ namespace ResetScore
             player.ActionTrackingServices.MatchStats.Deaths = deaths;
             player.ActionTrackingServices.MatchStats.Assists = assists;
             player.ActionTrackingServices.MatchStats.Damage = damage;
-            player.MVPs = mvps;
             player.Score = score;
+    
+            if (Config.DisableResetScoreMVP == false) {
+                player.MVPs = mvps;
+            }
 
             Utilities.SetStateChanged(player, "CCSPlayerController", "m_pActionTrackingServices");
-            Utilities.SetStateChanged(player, "CCSPlayerController", "m_iMVPs");
             Utilities.SetStateChanged(player, "CCSPlayerController", "m_iScore");
+
+            if (Config.DisableResetScoreMVP == false) {
+                Utilities.SetStateChanged(player, "CCSPlayerController", "m_iMVPs");
+            }
         }
 
         private string ModifyColorValue(string msg)
