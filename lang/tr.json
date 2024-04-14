@@ -1,0 +1,6 @@
+{
+    "resetscore.resetscore.onlyvips": "Bu komutu yalnızca VIP kullanıcılar kullanabilir!",
+    "resetscore.setscore.onlyadmins": "Bu komutu yalnızca Yetkililer kullanabilir!",
+    "resetscore.resetscore.message": "Skorunuz başarıyla sıfırlandı!",
+    "resetscore.setscore.message": "{Gold}{0:s}{Default} isimli oyuncunun skoru yetkili tarafından değiştirildi!"
+}
