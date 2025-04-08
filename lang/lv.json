@@ -1,5 +1,5 @@
 {
-    "resetscore.resetscore.onlyvips": "Šī komanda ir pieejama tikai vipi !",
+    "resetscore.resetscore.onlyvips": "Šī komanda ir pieejama tikai vip spēlētājiem !",
     "resetscore.setscore.onlyadmins": "Šī komanda ir pieejama tikai adminiem !",
     "resetscore.resetscore.message": "Tavs rekords tika  izdzēsts !",
     "resetscore.setscore.message": "{Gold}{0:s}{Default} Tavs rekords tika nomainīts !"
