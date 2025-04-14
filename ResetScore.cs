@@ -13,12 +13,11 @@ using Microsoft.Extensions.Logging;
 
 namespace ResetScore
 {
-    [MinimumApiVersion(193)]
     public class ResetScore : BasePlugin, IPluginConfig<ResetScoreConfig>
     {
         public override string ModuleAuthor => "StefanX";
         public override string ModuleName => "ResetScore";
-        public override string ModuleVersion => "1.0.6";
+        public override string ModuleVersion => "1.0.7";
 
         public ResetScoreConfig Config { get; set; } = new();
 

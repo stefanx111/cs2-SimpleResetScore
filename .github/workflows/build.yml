@@ -30,7 +30,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '7.0'
+          dotnet-version: '8.0'
 
       - name: Build
         run: dotnet build
@@ -39,13 +39,13 @@ jobs:
         run: |
           mkdir -p ResetScore
           mv lang ResetScore
-          mv bin/Debug/net7.0/* ResetScore
+          mv bin/Debug/net8.0/* ResetScore
 
       - name: Create .zip artifact
         run: zip -r ${{ github.event.repository.name }}.zip ResetScore/*
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ github.event.repository.name }}
           path: ${{ github.event.repository.name }}.zip
@@ -58,7 +58,7 @@ jobs:
 
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ github.event.repository.name }}
 
