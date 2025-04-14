@@ -1,0 +1,6 @@
+{
+    "resetscore.resetscore.onlyvips": "Bu buyruq faqat VIP o‘yinchilar uchun!",
+    "resetscore.setscore.onlyadmins": "Bu buyruq faqat adminlar uchun!",
+    "resetscore.resetscore.message": "Statistika qayta tiklandi!",
+    "resetscore.setscore.message": "O‘yinchi {Gold}{0:s}{Default} statistikasi oʻrnatildi"
+} 
